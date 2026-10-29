@@ -51,7 +51,9 @@ std::string Card::to_string() const {
 // purpose, so the tests in tests/test_hand.cpp fail until you write them. Name
 // the parameters when you replace the bodies.
 
-bool Card::operator==(const Card &) const { return false; }
+bool Card::operator==(const Card &other) const { 
+    return m_rank == other.m_rank && m_suit == other.m_suit;  
+}
 
 bool Card::operator<(const Card &) const { return false; }
 
