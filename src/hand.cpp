@@ -13,9 +13,13 @@ Hand &Hand::operator+=(const Card &card) {
     return *this; 
 }
 
-const Card &Hand::operator[](int) const { return m_cards[0]; }
+const Card &Hand::operator[](int index) const { 
+    return m_cards[index]; 
+}
 
-int Hand::count() const { return 0; }
+int Hand::count() const { 
+    return m_count; 
+}
 
 int Hand::value() const { return 0; }
 
