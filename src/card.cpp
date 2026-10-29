@@ -66,4 +66,8 @@ bool Card::operator<(const Card &other) const {
 
 }
 
-std::ostream &operator<<(std::ostream &out, const Card &) { return out; }
+std::ostream &operator<<(std::ostream &out, const Card &card) { 
+    // Calls to_string function to print the card in text format
+    out << card.to_string();
+    return out;
+}
