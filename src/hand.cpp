@@ -7,7 +7,11 @@
 
 Hand::Hand() : m_cards{}, m_count{0} {}
 
-Hand &Hand::operator+=(const Card &) { return *this; }
+Hand &Hand::operator+=(const Card &card) { 
+    m_cards[m_count] = card;
+    ++m_count;
+    return *this; 
+}
 
 const Card &Hand::operator[](int) const { return m_cards[0]; }
 
