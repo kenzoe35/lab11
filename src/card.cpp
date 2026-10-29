@@ -52,9 +52,18 @@ std::string Card::to_string() const {
 // the parameters when you replace the bodies.
 
 bool Card::operator==(const Card &other) const { 
+    // Checks if the ranks then the suits are the same
     return m_rank == other.m_rank && m_suit == other.m_suit;  
 }
 
-bool Card::operator<(const Card &) const { return false; }
+bool Card::operator<(const Card &other) const { 
+    // Compares the ranks
+    if (m_rank != other.m_rank) {
+        return m_rank < other.m_rank;
+    }
+    // By the time we get here, the ranks are equal so we compare suits
+    return m_suit < other.m_suit;
+
+}
 
 std::ostream &operator<<(std::ostream &out, const Card &) { return out; }
