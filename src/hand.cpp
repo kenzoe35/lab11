@@ -21,7 +21,33 @@ int Hand::count() const {
     return m_count; 
 }
 
-int Hand::value() const { return 0; }
+int Hand::value() const { 
+   // If there are no cards in hand
+   if (m_count == 0) {
+     return 0;
+   }
+   int total = 0;
+   int ace_count = 0;
+
+   // Searches through the hand
+   for (int i = 0; i < m_count; ++i) {
+     int rank = m_cards[i].rank();
+     if (rank == 1) {
+       ace_count++; // Increases ace count if there is one in hand
+       total += 11;
+     } else if (rank >= 10) {
+         total += 10; // Checks for kings, queens and jacks which are 10
+     } else {
+         total += rank; // Adds up every other number card
+     }
+   }
+   // If over 21/bust, checks for aces and substracts 10 to make ace = 1
+   while (total > 21 && ace_count > 0) {
+     total -= 10;
+     ace_count--;
+   }
+   return total;
+}
 
 bool Hand::is_blackjack() const { return false; }
 
