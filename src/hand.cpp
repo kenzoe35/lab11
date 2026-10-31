@@ -49,7 +49,10 @@ int Hand::value() const {
    return total;
 }
 
-bool Hand::is_blackjack() const { return false; }
+bool Hand::is_blackjack() const { 
+    // A black jack happens when you have 2 cards that equal 21
+    return (m_count == 2 && value() == 21);
+}
 
 bool Hand::is_bust() const { return false; }
 
