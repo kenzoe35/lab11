@@ -54,7 +54,10 @@ bool Hand::is_blackjack() const {
     return (m_count == 2 && value() == 21);
 }
 
-bool Hand::is_bust() const { return false; }
+bool Hand::is_bust() const { 
+    // A bust happens when the value of your cards goes above 21
+    return value() > 21; 
+}
 
 void Hand::clear() {}
 
