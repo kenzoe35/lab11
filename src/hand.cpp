@@ -59,6 +59,9 @@ bool Hand::is_bust() const {
     return value() > 21; 
 }
 
-void Hand::clear() {}
+void Hand::clear() {
+    // In order to clear a hand, your hand amount needs to be 0
+    m_count = 0;
+}
 
 std::ostream &operator<<(std::ostream &out, const Hand &) { return out; }
