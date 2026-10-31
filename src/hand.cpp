@@ -64,4 +64,12 @@ void Hand::clear() {
     m_count = 0;
 }
 
-std::ostream &operator<<(std::ostream &out, const Hand &) { return out; }
+std::ostream &operator<<(std::ostream &out, const Hand &hand) { 
+    for (int i = 0; i < hand.count(); i++) {
+        if (i > 0) {
+            out << " "; // Prints a space between
+        }
+        out << hand[i];
+    }
+    return out; 
+}
