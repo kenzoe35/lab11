@@ -75,12 +75,12 @@ void play_blackjack() {
 
     // Player turn
     bool player_bust = false;
-    char choice = ' ';
+    char blackjack_choice = ' ';
     while (true) {
         std::cout << "Hit (h) or Stand (s)? ";
-        std::cin >> choice;
+        std::cin >> blackjack_choice;
 
-        if (choice == 'h' || choice == 'H') {
+        if (blackjack_choice == 'h' || blackjack_choice == 'H') {
             player_hand += deck.deal();
             std::cout << "Your hand: " << player_hand << " (Value: " << player_hand.value() << ")\n";
             if (player_hand.is_bust()) {
@@ -88,10 +88,23 @@ void play_blackjack() {
                 player_bust = true;
                 break;
             }
-        } else if (choice == 's' || choice == 'S') {
+        } else if (blackjack_choice == 's' || blackjack_choice == 'S') {
             break;
         } else {
             std::cout << "Invalid choice. Please enter 'h' or 's'.\n";
+        }
+    }
+    // Dealer turn (if the player didn't bust)
+    bool dealer_bust = false;
+    if (!player_bust) {
+        std::cout << "Dealer's hand: " << dealer_hand << " (Value " << dealer_hand.value() << ")\n";
+        while (dealer_hand.value() < 17) {
+            dealer_hand += deck.deal();
+            std::cout << "Dealer hits " << dealer_hand << " (Value " << dealer_hand.value() << ")\n";
+        }
+        if (dealer_hand.is_bust()) {
+            std::cout << "Dealer busts!\n";
+            dealer_bust = true;
         }
     }
 
