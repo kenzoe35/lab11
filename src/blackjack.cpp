@@ -6,6 +6,7 @@
 
 #include "card.h"
 #include "deck.h"
+#include "hand.h"
 
 namespace {
 
@@ -30,10 +31,44 @@ std::string top_five(Deck deck) {
 void play_blackjack() {
   std::random_device device{};
   std::mt19937 gen{device()};
+  
+  // Sets the starting amount of money and bet amount
+  int bankroll = 100;
+  const int bet = 10;
 
   std::cout << "\n--- Blackjack ---\n";
 
   Deck deck;
+  deck.shuffle(gen);
+  
+  // Money currently sets the loop
+  while (bankroll > 0) {
+    std::cout << "Bankroll: $" << bankroll << " | Current Bet: $" << bet << "\n";
+    
+    // Reshuffles the deck if low amount of cards
+    if (deck.remaining() < 15) {
+        std::cout << "Reshuffling deck...\n";
+        deck = Deck{};
+        deck.shuffle(gen);
+    }
+    
+    // Constructs both player and dealer hand
+    Hand player_hand;
+    Hand dealer_hand;
+    
+    // Deals two cards to both player and dealer
+    player_hand += deck.deal();
+    dealer_hand += deck.deal();
+    player_hand += deck.deal();
+    dealer_hand += deck.deal();
+
+    // Show hands, dealer has to show their first card
+    std::cout << "Dealer shows: " << dealer_hand[0] << " [hidden]\n";
+    std::cout << "Your hand:    " << player_hand << " (Value: " << player_hand.value() << ")\n";
+
+    bankroll = 0;
+  }
+
   if (deck.empty()) {
     std::cout << "The deck is empty. Write Deck() in deck.cpp first.\n";
     return;
