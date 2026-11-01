@@ -107,8 +107,39 @@ void play_blackjack() {
             dealer_bust = true;
         }
     }
+    // Determine what happens after
+    int player_value = player_hand.value();
+    int dealer_value = dealer_hand.value();
 
-    bankroll = 0;
+    if (player_bust) {
+        std::cout << "You lose $" << bet << ".\n";
+        bankroll -= bet;
+    } else if (dealer_bust) {
+        std::cout << "You win $" << bet << "!\n";
+        bankroll += bet;
+    } else if (player_value > dealer_value) {
+        std::cout << " You win $" << bet << "! (" << player_value << " vs " << dealer_value << ")\n";
+        bankroll += bet;
+    } else if (player_value < dealer_value) {
+        std::cout << "Dealer wins. You lose $" << bet << ". (" << dealer_value << player_value << "(\n";
+        bankroll -= bet;
+    } else {
+        std::cout << "Push (Tie). Your bet is returned.\n";
+    }
+
+    if (bankroll <= 0) {
+        std::cout << "\nYou are out of money! Game over.\n";
+        break;
+    }
+
+    // Ask to play another round
+    char play_again;
+    std::cout << "Play another round? (y/n): ";
+    std::cin >> play_again;
+    if (play_again != 'y' && play_again != 'Y') {
+        std::cout << "Thanks for playing! Final bankroll: $" << bankroll << "\n";
+        break;
+    }
   }
 
   if (deck.empty()) {
