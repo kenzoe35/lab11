@@ -66,6 +66,35 @@ void play_blackjack() {
     std::cout << "Dealer shows: " << dealer_hand[0] << " [hidden]\n";
     std::cout << "Your hand:    " << player_hand << " (Value: " << player_hand.value() << ")\n";
 
+    // Check for blackjack if drawn at the start
+    if (player_hand.is_blackjack()) {
+        std::cout << "Blackjack!\n";
+        bankroll += bet;
+        continue;
+    }
+
+    // Player turn
+    bool player_bust = false;
+    char choice = ' ';
+    while (true) {
+        std::cout << "Hit (h) or Stand (s)? ";
+        std::cin >> choice;
+
+        if (choice == 'h' || choice == 'H') {
+            player_hand += deck.deal();
+            std::cout << "Your hand: " << player_hand << " (Value: " << player_hand.value() << ")\n";
+            if (player_hand.is_bust()) {
+                std::cout << "Bust! You went over 21.\n";
+                player_bust = true;
+                break;
+            }
+        } else if (choice == 's' || choice == 'S') {
+            break;
+        } else {
+            std::cout << "Invalid choice. Please enter 'h' or 's'.\n";
+        }
+    }
+
     bankroll = 0;
   }
 
